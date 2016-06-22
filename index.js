@@ -117,9 +117,9 @@ let getVersionForLinux32 = () => {
 }
 
 
-const versionOSXUrl = `${getBaseUrl()}updates/latest/osx/buildVersion1`;
-const versionLinux64Url = `${getBaseUrl()}updates/latest/linux64/buildVersion1`;
-const versionLinux32Url = `${getBaseUrl()}updates/latest/linux32/buildVersion1`;
+const versionOSXUrl = `${getBaseUrl()}updates/latest/osx/buildVersion`;
+const versionLinux64Url = `${getBaseUrl()}updates/latest/linux64/buildVersion`;
+const versionLinux32Url = `${getBaseUrl()}updates/latest/linux32/buildVersion`;
 getVersionForOSX();
 getVersionForLinux64();
 getVersionForLinux32();
