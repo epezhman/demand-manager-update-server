@@ -22,7 +22,7 @@ app.get('/updates/latest/osx', (req, res) => {
             res.status(204).end();
         } else {
             res.json({
-                url: `${getBaseUrl()}/updates/latest/osx/TUM Demand Manager-${versionOSX}-mac.zip`
+                url: `${getBaseUrl()}updates/latest/osx/TUM Demand Manager-${versionOSX}-mac.zip`
             });
         }
     }
@@ -40,7 +40,7 @@ app.get('/updates/latest/linux64', (req, res) => {
             res.status(204).end();
         } else {
             res.json({
-                url: `${getBaseUrl()}/updates/latest/linux64/tumdmdesktop-${versionLinux64}.deb`
+                url: `${getBaseUrl()}updates/latest/linux64/tumdmdesktop-${versionLinux64}.deb`
             });
         }
     }
@@ -58,7 +58,7 @@ app.get('/updates/latest/linux32', (req, res) => {
             res.status(204).end();
         } else {
             res.json({
-                url: `${getBaseUrl()}/updates/latest/linux64/tumdmdesktop-${versionLinux32}-ia32.deb`
+                url: `${getBaseUrl()}updates/latest/linux64/tumdmdesktop-${versionLinux32}-ia32.deb`
             });
         }
     }
