@@ -1,29 +1,64 @@
 'use strict';
 const express = require('express');
-const path = require('path');
 const app = express();
 const request = require('request');
-const isDevelopment = process.env.NODE_ENV === 'development';
 
-var version;
-// Fetch manifest info every 5 minutes
-const FETCH_INTERVAL = 300000;
+var versionOSX;
+var versionLinux32;
+var versionLinux64;
+
+const FETCH_INTERVAL_OSX = 300000;
+const FETCH_INTERVAL_LINUX64 = 305000;
+const FETCH_INTERVAL_LINUX32 = 310000;
 
 app.use(require('morgan')('dev'));
 
-if (isDevelopment) {
-    app.use('/updates/latest', express.static(path.join(__dirname, 'updates/latest')));
-}
 
-app.get('/updates/latest', (req, res) => {
-    if (version) {
+app.get('/updates/latest/osx', (req, res) => {
+    if (versionOSX) {
         const clientVersion = req.query.v;
 
-        if (clientVersion === version) {
+        if (clientVersion === versionOSX) {
             res.status(204).end();
         } else {
             res.json({
-                url: `${getBaseUrl()}/updates/latest/osx/eatodo-${version}-mac.zip`
+                url: `${getBaseUrl()}/updates/latest/osx/TUM Demand Manager-${versionOSX}-mac.zip`
+            });
+        }
+    }
+    else {
+        res.status(204).end();
+    }
+});
+
+
+app.get('/updates/latest/linux64', (req, res) => {
+    if (versionLinux64) {
+        const clientVersion = req.query.v;
+
+        if (clientVersion === versionLinux64) {
+            res.status(204).end();
+        } else {
+            res.json({
+                url: `${getBaseUrl()}/updates/latest/linux64/tumdmdesktop-${versionLinux64}.deb`
+            });
+        }
+    }
+    else {
+        res.status(204).end();
+    }
+});
+
+
+app.get('/updates/latest/linux32', (req, res) => {
+    if (versionLinux32) {
+        const clientVersion = req.query.v;
+
+        if (clientVersion === versionLinux32) {
+            res.status(204).end();
+        } else {
+            res.json({
+                url: `${getBaseUrl()}/updates/latest/linux64/tumdmdesktop-${versionLinux32}-ia32.deb`
             });
         }
     }
@@ -33,30 +68,62 @@ app.get('/updates/latest', (req, res) => {
 });
 
 let getBaseUrl = () => {
-    if (isDevelopment) {
-        return 'http://localhost:3000';
-    } else {
-        return 'http://eatodo.s3.amazonaws.com'
-    }
+    return 'https://s3.eu-central-1.amazonaws.com/demand-manager-resources/'
 }
 
-let getVersion = () => {
-    console.log(`Fetching latest version from ${versionUrl}`);
-    request.get(versionUrl, function (error, response, body) {
+let getVersionForOSX = () => {
+    console.log(`Fetching latest version from ${versionOSXUrl}`);
+    request.get(versionOSXUrl, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            version = body;
+            versionOSX = body;
+            console.log(versionOSX)
         }
         else if (error) {
             console.error(error);
         }
     });
-    
-    setTimeout(getVersion, FETCH_INTERVAL);
+
+    setTimeout(getVersionForOSX, FETCH_INTERVAL_OSX);
 }
 
-const versionUrl = `${getBaseUrl()}/updates/latest/osx/VERSION`;
-getVersion();
+let getVersionForLinux64 = () => {
+    console.log(`Fetching latest version from ${versionLinux64Url}`);
+    request.get(versionLinux64Url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            versionLinux64 = body;
+            console.log(versionLinux64)
+        }
+        else if (error) {
+            console.error(error);
+        }
+    });
 
-app.listen(process.env.PORT, () => {
-    console.log(`Express server listening on port ${process.env.PORT}`);
+    setTimeout(getVersionForLinux64, FETCH_INTERVAL_LINUX64);
+}
+
+let getVersionForLinux32 = () => {
+    console.log(`Fetching latest version from ${versionLinux32Url}`);
+    request.get(versionLinux32Url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            versionLinux32 = body;
+            console.log(versionLinux32)
+        }
+        else if (error) {
+            console.error(error);
+        }
+    });
+
+    setTimeout(getVersionForLinux32, FETCH_INTERVAL_LINUX32);
+}
+
+
+const versionOSXUrl = `${getBaseUrl()}updates/latest/osx/buildVersion1`;
+const versionLinux64Url = `${getBaseUrl()}updates/latest/linux64/buildVersion1`;
+const versionLinux32Url = `${getBaseUrl()}updates/latest/linux32/buildVersion1`;
+getVersionForOSX();
+getVersionForLinux64();
+getVersionForLinux32();
+
+app.listen('2500', '127.0.0.1', () => {
+    console.log(`Express server listening on port 2500`);
 });
