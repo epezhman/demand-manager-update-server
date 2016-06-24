@@ -40,7 +40,8 @@ app.get('/updates/latest/linux64', (req, res) => {
             res.status(204).end();
         } else {
             res.json({
-                url: `${getBaseUrl()}updates/latest/linux64/tumdmdesktop-${versionLinux64}.deb`
+                url: `${getBaseUrl()}updates/latest/linux64/tumdmdesktop-${versionLinux64}.deb`,
+                file: `tumdmdesktop-${versionLinux32}.deb`
             });
         }
     }
@@ -58,7 +59,8 @@ app.get('/updates/latest/linux32', (req, res) => {
             res.status(204).end();
         } else {
             res.json({
-                url: `${getBaseUrl()}updates/latest/linux64/tumdmdesktop-${versionLinux32}-ia32.deb`
+                url: `${getBaseUrl()}updates/latest/linux64/tumdmdesktop-${versionLinux32}-ia32.deb`,
+                file: `tumdmdesktop-${versionLinux32}-ia32.deb`
             });
         }
     }
