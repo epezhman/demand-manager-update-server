@@ -20,7 +20,7 @@ app.get('/updates/latest/linux64', (req, res) => {
         } else {
             res.json({
                 url: `${getBaseUrl()}updates/latest/linux64/i13dmdesktop_${versionLinux64}_amd64.deb`,
-                file: `tumdmdesktop-${versionLinux32}.deb`
+                file: `i13dmdesktop_${versionLinux64}_amd64.debb`
             });
         }
     }
@@ -39,7 +39,7 @@ app.get('/updates/latest/linux32', (req, res) => {
         } else {
             res.json({
                 url: `${getBaseUrl()}updates/latest/linux64/i13dmdesktop_${versionLinux32}_ia32.deb`,
-                file: `tumdmdesktop-${versionLinux32}-ia32.deb`
+                file: `i13dmdesktop_${versionLinux32}_ia32.deb`
             });
         }
     }
