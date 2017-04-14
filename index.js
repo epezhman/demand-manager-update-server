@@ -19,8 +19,8 @@ app.get('/updates/latest/linux64', (req, res) => {
             res.status(204).end();
         } else {
             res.json({
-                url: `${getBaseUrl()}updates/latest/linux64/i13dmdesktop_${versionLinux64}_amd64.deb`,
-                file: `i13dmdesktop_${versionLinux64}_amd64.deb`
+                url: `${getBaseUrl()}updates/latest/linux64/i13dm_${versionLinux64}_amd64.deb`,
+                file: `i13dm_${versionLinux64}_amd64.deb`
             });
         }
     }
@@ -38,8 +38,8 @@ app.get('/updates/latest/linux32', (req, res) => {
             res.status(204).end();
         } else {
             res.json({
-                url: `${getBaseUrl()}updates/latest/linux64/i13dmdesktop_${versionLinux32}_ia32.deb`,
-                file: `i13dmdesktop_${versionLinux32}_ia32.deb`
+                url: `${getBaseUrl()}updates/latest/linux64/i13dm_${versionLinux32}_ia32.deb`,
+                file: `i13dm_${versionLinux32}_ia32.deb`
             });
         }
     }
