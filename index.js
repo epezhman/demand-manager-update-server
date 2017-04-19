@@ -6,8 +6,8 @@ const request = require('request');
 var versionLinux32;
 var versionLinux64;
 
-const FETCH_INTERVAL_LINUX64 = 305000;
-const FETCH_INTERVAL_LINUX32 = 310000;
+const FETCH_INTERVAL_LINUX64 = 30000;
+const FETCH_INTERVAL_LINUX32 = 31000;
 
 app.use(require('morgan')('dev'));
 
